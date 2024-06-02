@@ -59,11 +59,10 @@ def cbr_scraping(category):
     print(f'All {category} news added')
     return dic_news
 
+def news_to_excel(dic ,file_name):
+    news_df = pd.DataFrame(dic)
+    news_df.to_excel(f'{file_name}.xlsx')
 
-
-
-
-
-
-
-
+def search_news(category, file_name='news'):
+    dic_news = cbr_scraping(category)
+    news_to_excel(dic_news, file_name)
