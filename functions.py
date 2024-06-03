@@ -5,6 +5,17 @@ import time
 
 
 def cbr_scraping(category):
+    """Scrapes the latest news from cbr.com in a given category.
+
+    Args:
+        category (str): The news category to search for. Must be one of the allowed categories. [Anime, Comics, Game, Movies, Tv].
+
+    Raises:
+        ValueError: If the assigned category is not in the list of possibilities.
+
+    Returns:
+        dict: A dictionary containing information about the news.
+    """
     categories = ['anime', 'comics', 'game', 'movies', 'tv']
     category = category.lower()
 
@@ -60,9 +71,27 @@ def cbr_scraping(category):
     return dic_news
 
 def news_to_excel(dic ,file_name):
+    """Saves news in an Excel file.
+
+    Args:
+        dic (dict): The dictionary containing news information.
+        file_name (str): The name of the Excel file to save the news data
+    """
     news_df = pd.DataFrame(dic)
-    news_df.to_excel(f'{file_name}.xlsx')
+    news_df.to_excel(f'{file_name}.xlsx', index=False)
 
 def search_news(category, file_name='news'):
+    """Searches for the latest news from cbr.com for a given category and saves it to an Excel file.
+
+    This function scrapes the latest news articles from cbr.com based on the specified category,
+    and then saves the collected news data into an Excel file.
+
+    Args:
+        category (str): The news category to search for. Must be one of the allowed categories. [Anime, Comics, Game, Movies, Tv].
+        file_name (str, optional): The name of the Excel file to save the news data. Defaults to 'news'.
+
+    Raises:
+        ValueError: If the assigned category is not in the list of possibilities.
+    """
     dic_news = cbr_scraping(category)
     news_to_excel(dic_news, file_name)
